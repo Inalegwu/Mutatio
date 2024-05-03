@@ -18,9 +18,11 @@ enum Type {
 
 #[derive(Debug, Deserialize, Serialize)]
 struct TokenColors {
+    name:Option<String>,
     scope: Vec<String>,
     settings: HashMap<String, String>,
 }
+
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 struct VsCodeTheme {
