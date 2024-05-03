@@ -18,7 +18,8 @@ enum Type {
 
 #[derive(Debug, Deserialize, Serialize)]
 struct TokenColors {
-    name:Option<String>,
+    name: Option<String>,
+    // TODO make this handle String | Vec<String> cases properly
     scope: Vec<String>,
     settings: HashMap<String, String>,
 }
@@ -30,8 +31,8 @@ struct VsCodeTheme {
     r#type: Type,
     colors: HashMap<String, String>,
     token_colors: Vec<TokenColors>,
-    semantic_highlighting: bool,
-    semantic_token_colors: HashMap<String, String>,
+    semantic_highlighting: Option<bool>,
+    semantic_token_colors: Option<HashMap<String, String>>,
 }
 
 fn main() {
