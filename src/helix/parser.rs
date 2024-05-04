@@ -9,13 +9,11 @@ struct HelixTheme {
     scopes: HashMap<String, String>,
 }
 
-pub struct HelixThemeParser {
-    theme: Option<HelixTheme>,
-}
+pub struct HelixThemeParser {}
 
 impl HelixThemeParser {
     pub fn new() -> Self {
-        HelixThemeParser { theme: None }
+        HelixThemeParser {}
     }
 
     pub fn execute(&mut self, file: &mut File, to: ThemeOptions) {

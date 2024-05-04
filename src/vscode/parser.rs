@@ -1,10 +1,6 @@
 use crate::cmd::cmd::ThemeOptions;
 use serde::{Deserialize, Serialize};
-use std::{
-    collections::HashMap,
-    fmt::Error,
-    fs::{File, Metadata},
-};
+use std::{collections::HashMap, fmt::Error, fs::File};
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
