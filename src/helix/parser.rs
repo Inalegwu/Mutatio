@@ -1,6 +1,6 @@
 use crate::cmd::cmd::ThemeOptions;
 use serde::{Deserialize, Serialize};
-use std::{collections::HashMap, fs::File, io::Read, path::Path};
+use std::{collections::HashMap, fs::File, io::Read};
 use toml::{self, Table};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -31,6 +31,9 @@ impl HelixThemeParser {
             }
             ThemeOptions::VSCode => {
                 println!("{:#?}", theme)
+            }
+            ThemeOptions::Nvim => {
+                println!("[WIP]")
             }
         }
     }

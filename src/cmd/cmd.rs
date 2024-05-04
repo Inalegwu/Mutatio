@@ -4,6 +4,7 @@ use clap::Parser;
 pub enum ThemeOptions {
     VSCode,
     Helix,
+    Nvim
 }
 
 #[derive(Parser, Debug)]

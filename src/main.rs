@@ -10,6 +10,7 @@ fn main() -> Result<(), Error> {
 
     let path = Path::new(&args.file);
 
+ 
     let mut file = File::open(path).expect("Couldn't open file");
 
     match args.from {
@@ -21,6 +22,9 @@ fn main() -> Result<(), Error> {
             let mut theme_parser = HelixThemeParser::new();
             // passing the path instead,'cause toml package is wierd
             let _ = theme_parser.execute(&mut file, args.to);
+        }
+        ThemeOptions::Nvim=>{
+            println!("[WIP]")
         }
     }
 
