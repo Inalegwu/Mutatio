@@ -1,3 +1,4 @@
+use super::super::cmd::cmd::ThemeOptions;
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, fmt::Error, fs::File};
 
@@ -32,13 +33,20 @@ impl VSThemeParser {
     pub fn new() -> Self {
         return VSThemeParser { theme: None };
     }
-    pub fn execute(&mut self, file: File) -> Result<(), Error> {
+    pub fn execute(&mut self, file: File, to: ThemeOptions) -> Result<(), Error> {
         let theme: VsCodeTheme =
             serde_json::from_reader(file).expect("Error parsing vs code theme");
 
         self.theme = Some(theme);
 
-        println!("{:#?}", self.theme);
+        match to {
+            ThemeOptions::Helix => {
+                println!("{:#?}", self.theme);
+            }
+            ThemeOptions::VSCode => {
+                println!("File is already vscode theme file");
+            }
+        }
 
         Ok(())
     }

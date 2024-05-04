@@ -1,21 +1,8 @@
 use clap::Parser;
+use mutatio::cmd::cmd::{Args, ThemeOptions};
 use mutatio::vscode::parser::VSThemeParser;
 use std::fmt::Error;
 use std::{fs::File, path::Path};
-
-#[derive(Clone, Debug, clap::ValueEnum)]
-enum ThemeOptions {
-    VSCode,
-    Helix,
-}
-
-#[derive(Parser, Debug)]
-#[command(version, about,long_about=None)]
-struct Args {
-    from: ThemeOptions,
-
-    file: String,
-}
 
 fn main() -> Result<(), Error> {
     let args = Args::parse();
@@ -27,7 +14,7 @@ fn main() -> Result<(), Error> {
     match args.from {
         ThemeOptions::VSCode => {
             let mut theme_parser = VSThemeParser::new();
-            let _ = theme_parser.execute(file);
+            let _ = theme_parser.execute(file, args.to);
         }
         ThemeOptions::Helix => {
             println!("[WIP]")
