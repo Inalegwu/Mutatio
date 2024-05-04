@@ -1,55 +1,38 @@
 use clap::Parser;
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use mutatio::vscode::parser::VSThemeParser;
+use std::fmt::Error;
 use std::{fs::File, path::Path};
+
+#[derive(Clone, Debug, clap::ValueEnum)]
+enum ThemeOptions {
+    VSCode,
+    Helix,
+}
 
 #[derive(Parser, Debug)]
 #[command(version, about,long_about=None)]
 struct Args {
+    from: ThemeOptions,
+
     file: String,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
-#[serde(rename_all = "lowercase")]
-enum Type {
-    Dark,
-    Light,
-}
-
-#[derive(Debug, Deserialize, Serialize)]
-struct TokenColors {
-    name: Option<String>,
-    // TODO make this handle String | Vec<String> cases properly
-    scope: Vec<String>,
-    settings: HashMap<String, String>,
-}
-
-#[derive(Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-struct VsCodeTheme {
-    name: String,
-    r#type: Type,
-    colors: HashMap<String, String>,
-    token_colors: Vec<TokenColors>,
-    semantic_highlighting: Option<bool>,
-    semantic_token_colors: Option<HashMap<String, String>>,
-}
-
-fn main() {
+fn main() -> Result<(), Error> {
     let args = Args::parse();
 
     let path = Path::new(&args.file);
 
-    let file = File::open(path);
+    let file = File::open(path).expect("Couldn't open file");
 
-    match file {
-        Ok(v) => {
-            let theme: VsCodeTheme =
-                serde_json::from_reader(v).expect("Error parsing vs code theme");
-            println!("{:#?}", theme)
+    match args.from {
+        ThemeOptions::VSCode => {
+            let mut theme_parser = VSThemeParser::new();
+            let _ = theme_parser.execute(file);
         }
-        Err(e) => {
-            panic!("Error Occurred {}", e);
+        ThemeOptions::Helix => {
+            println!("[WIP]")
         }
     }
+
+    Ok(())
 }
