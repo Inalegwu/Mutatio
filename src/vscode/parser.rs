@@ -1,4 +1,4 @@
-use super::super::cmd::cmd::ThemeOptions;
+use crate::cmd::cmd::ThemeOptions;
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, fmt::Error, fs::File};
 
